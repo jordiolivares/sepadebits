@@ -1,0 +1,9 @@
+certifi==2018.1.18
+fintech==4.3.5
+fpdf==1.7.2
+lxml==4.1.1
+numpy==1.14.0
+pandas==0.22.0
+python-dateutil==2.6.1
+pytz==2017.3
+six==1.11.0
