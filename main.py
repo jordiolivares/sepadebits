@@ -17,7 +17,7 @@ arg_parser.add_argument("--creditor-city", type=str, required=False, help="Credi
 arg_parser.add_argument("-m", "--mandate", type=str, required=True, help="Mandate in Python {} string formatting style, supports the variables: 'id'")
 arg_parser.add_argument("-c", "--concept", type=str, required=True, help="Concept in Python {} string formatting style, supports the variables: 'id'")
 arg_parser.add_argument("-f", "--input-file", required=True, type=argparse.FileType('r'), help="CSV input file")
-arg_parser.add_argument("-o", "--output-file", required=False, type=argparse.FileType('w'), default=sys.stdout)
+arg_parser.add_argument("-o", "--output-file", required=False, type=argparse.FileType('wb'), default=sys.stdout.buffer)
 arg_parser.add_argument("-d", "--due-date", required=True, type=datetime.date.fromisoformat, help="CSV input file")
 arg_parser.add_argument("--iban-column", required=True, type=str)
 arg_parser.add_argument("--name-column", required=True, type=str)
@@ -47,5 +47,6 @@ for _, row in df.iterrows():
     except:
         _, exc_obj, _ = sys.exc_info()
         print("{} - {} / {}".format(row[args.id_column], row[args.iban_column], str(exc_obj)), file=sys.stderr)
-args.out_file.write(sdd.render())
+output = sdd.render()
+args.output_file.write(output)
 
