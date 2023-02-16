@@ -34,14 +34,14 @@ CONCEPT = args.concept
 MANDATE = args.mandate
 
 creditor = Account(iban=IBAN, name=NAME, country=COUNTRY, city=CITY)
-creditor.set_creditor_id(CREDITOR_ID)
+creditor.set_originator_id(CREDITOR_ID)
 
 sdd = SEPADirectDebit(creditor, 'CORE')
 
 df = pd.read_csv(args.input_file, quotechar='"')
 for _, row in df.iterrows():
     try:
-        debtor = Account(iban=row[args.iban_column].replace(' ', ''), name=row[args.name_column])
+        debtor = Account(iban=row[args.iban_column].replace(' ', '').upper(), name=row[args.name_column])
         debtor.set_mandate(mref=MANDATE.format(id=row[args.id_column]), signed=datetime.date.today(), recurrent=False)
         sdd.add_transaction(account=debtor, amount=row[args.amount_column], purpose=CONCEPT.format(id=row[args.id_column]), due_date=args.due_date)
     except:

@@ -1,2 +1,2 @@
-fintech==7.0.6
-pandas==1.4.1
+fintech==7.2.9
+pandas==1.5.3
